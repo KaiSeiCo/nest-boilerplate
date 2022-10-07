@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
-import { RouterModule } from '@nestjs/core'
+import { APP_GUARD, RouterModule } from '@nestjs/core'
 import { ADMIN_ROUTER_PREFIX } from 'src/common/constant/router-prefix.constants'
+import { AuthGuard } from 'src/common/guard/auth.guard'
 import { AdminAuthModule } from './auth/auth.module'
 
 @Module({
@@ -13,7 +14,12 @@ import { AdminAuthModule } from './auth/auth.module'
     ]),
     AdminAuthModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
   exports: [],
 })
 export class AdminModule {}

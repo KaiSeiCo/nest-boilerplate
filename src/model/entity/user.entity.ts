@@ -22,6 +22,7 @@ export default class User extends BaseEntity {
 
   @Column({
     nullable: true,
+    length: 1024
   })
   @ApiProperty()
   email: string
@@ -34,6 +35,7 @@ export default class User extends BaseEntity {
 
   @Column({
     nullable: true,
+    length: 128
   })
   @ApiProperty()
   intro: string
@@ -41,4 +43,11 @@ export default class User extends BaseEntity {
   @Column({})
   @ApiProperty()
   password: string
+
+  @Column({
+    type: 'tinyint',
+    nullable: true,
+  })
+  @ApiProperty()
+  status: number
 }

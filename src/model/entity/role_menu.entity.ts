@@ -14,6 +14,7 @@ export class UserRole extends BaseEntity {
   @Column({
     type: 'bigint',
     unsigned: true,
+    comment: '角色id'
   })
   @ApiProperty()
   role_id: number
@@ -21,6 +22,7 @@ export class UserRole extends BaseEntity {
   @Column({
     type: 'bigint',
     unsigned: true,
+    comment: '菜单id'
   })
   @ApiProperty()
   menu_id: number

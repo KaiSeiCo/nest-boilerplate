@@ -6,18 +6,21 @@ import { BaseEntity } from './base.entity'
 export class UserRole extends BaseEntity {
   @PrimaryColumn({
     type: 'bigint',
+    unsigned: true,
   })
   @ApiProperty()
   id: number
 
   @Column({
     type: 'bigint',
+    unsigned: true,
   })
   @ApiProperty()
   role_id: number
 
   @Column({
     type: 'bigint',
+    unsigned: true,
   })
   @ApiProperty()
   menu_id: number

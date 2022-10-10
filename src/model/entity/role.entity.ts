@@ -6,12 +6,14 @@ import { BaseEntity } from './base.entity'
 export class Role extends BaseEntity {
   @PrimaryColumn({
     type: 'bigint',
+    unsigned: true,
   })
   @ApiProperty()
   id: number
 
   @Column({
     type: 'bigint',
+    unsigned: true,
   })
   @ApiProperty()
   user_id: number
@@ -30,7 +32,7 @@ export class Role extends BaseEntity {
 
   @Column({
     type: 'varchar',
-    nullable: true
+    nullable: true,
   })
   @ApiProperty()
   remark: string

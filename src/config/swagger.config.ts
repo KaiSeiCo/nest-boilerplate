@@ -15,6 +15,7 @@ export function setupSwagger(app: INestApplication): void {
   const swaggerConfig = new DocumentBuilder()
     .setTitle(configService.get<string>('swagger.title'))
     .setDescription(configService.get<string>('swagger.desc'))
+    .addBearerAuth()
     .build()
 
   const document = SwaggerModule.createDocument(app, swaggerConfig)

@@ -17,4 +17,7 @@ export default {
     password: process.env.REDIS_PASSWORD,
     db: process.env.REDIS_DB,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
 }

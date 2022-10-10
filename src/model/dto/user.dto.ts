@@ -1,7 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsEmail, isNotEmpty, IsString, IsUrl, Length } from 'class-validator'
+import {
+  IsEmail,
+  IsOptional,
+  IsString,
+  IsUrl,
+  Length,
+} from 'class-validator'
 
-export class UserDto {
+export class UserLoginDto {
   @ApiProperty({ description: '用户名', required: true })
   @IsString()
   @Length(6)
@@ -13,7 +19,6 @@ export class UserDto {
 }
 
 export class UserRegisterDto {
-
   @ApiProperty({ description: '用户名', required: true })
   @IsString()
   @Length(6, 32)
@@ -25,18 +30,22 @@ export class UserRegisterDto {
   password: string
 
   @ApiProperty({ description: '邮箱', required: false })
+  @IsOptional()
   @IsEmail()
   email?: string
 
   @ApiProperty({ description: '昵称', required: false })
+  @IsOptional()
   @Length(6, 32)
   nickname?: string
 
   @ApiProperty({ description: '介绍', required: false })
+  @IsOptional()
   @Length(0, 128)
   intro?: string
 
   @ApiProperty({ description: '头像', required: false })
+  @IsOptional()
   @IsUrl()
   avatar?: string
 }

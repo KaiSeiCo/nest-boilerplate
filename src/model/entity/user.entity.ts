@@ -6,6 +6,7 @@ import { BaseEntity } from './base.entity'
 export default class User extends BaseEntity {
   @PrimaryColumn({
     type: 'bigint',
+    unsigned: true,
   })
   @ApiProperty()
   id: number
@@ -22,7 +23,7 @@ export default class User extends BaseEntity {
 
   @Column({
     nullable: true,
-    length: 1024
+    length: 1024,
   })
   @ApiProperty()
   email: string
@@ -35,7 +36,7 @@ export default class User extends BaseEntity {
 
   @Column({
     nullable: true,
-    length: 128
+    length: 128,
   })
   @ApiProperty()
   intro: string

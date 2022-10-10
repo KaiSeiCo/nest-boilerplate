@@ -23,4 +23,40 @@ export const CustomHttpCode: Record<
     code: 20000,
     message: '请求成功',
   },
+  NOT_LOGIN: {
+    code: 40001,
+    message: '未登录',
+  },
+  PARAMETER_INVALID: {
+    code: 40002,
+    message: '参数校验失败',
+  },
+  UNAUTHORIZED: {
+    code: 40003,
+    message: '未授权',
+  },
+  USER_NOT_EXISTS: {
+    code: 41004,
+    message: '用户不存在',
+  },
+  WRONG_PASSWORD: {
+    code: 41005,
+    message: '密码错误',
+  },
+  USER_ALREADY_EXISTS: {
+    code: 41006,
+    message: '用户名已被注册',
+  },
+  INTERNAL_SERVER_ERROR: {
+    code: 50000,
+    message: '内部服务器异常',
+  },
+  OPERATION_FAILED: {
+    code: 50001,
+    message: '操作失败',
+  },
+  INVALID_PARAMETER_FORMAT: {
+    code: 50002,
+    message: '参数格式不正确',
+  },
 }

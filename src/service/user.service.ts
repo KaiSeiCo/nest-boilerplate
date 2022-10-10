@@ -2,39 +2,43 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import User from '../model/entity/User.entity'
 import { Repository } from 'typeorm'
-import { UserDto, UserRegisterDto } from 'src/model/dto/user.dto'
+import { UserLoginDto, UserRegisterDto } from 'src/model/dto/user.dto'
 import { ApiException } from 'src/common/exception/api.exception'
-import { bcryptPassword } from 'src/util/bcrypt.util'
+import { bcryptPassword, comparePassword } from 'src/util/bcrypt.util'
 import { Snowflake } from 'nodejs-snowflake'
-import { toNumber } from 'lodash'
-import { Authorize } from 'src/common/decorator/auth.decorator'
+import { isEmpty, toNumber } from 'lodash'
+import { JwtService } from '@nestjs/jwt'
+import { LoginVo } from 'src/model/vo/user.vo'
 
 @Injectable()
 export class UserService {
-
   constructor(
     @InjectRepository(User)
-    private userRepo: Repository<User>
+    private userRepo: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
-  async findUser(userDto: UserDto): Promise<User> {
-    const user = await this.userRepo.findOneBy({
-      username: userDto.username,
+  async login(loginDto: UserLoginDto): Promise<LoginVo> {
+    const user = await this.userRepo.findOne({
+      where: { username: loginDto.username, status: 1 },
     })
 
-    if (!user) {
+    if (isEmpty(user)) {
       throw new ApiException(41004)
     }
-    if (user.password !== userDto.password) {
+    if (!comparePassword(loginDto.password, user.password)) {
       throw new ApiException(41005)
     }
+    const token = this.jwtService.sign({
+      ...user,
+    })
 
-    return user
+    return { token }
   }
 
   async register(waitToReg: UserRegisterDto) {
     const user = await this.userRepo.findOneBy({
-      username: waitToReg.username
+      username: waitToReg.username,
     })
 
     if (user) {
@@ -42,12 +46,16 @@ export class UserService {
     }
 
     waitToReg.password = bcryptPassword(waitToReg.password)
-    const id = new Snowflake().getUniqueID().toString()
+
+    const id = new Snowflake()
+      .idFromTimestamp(Date.parse(new Date().toString()))
+      .toString()
     console.log(id)
 
     const result = await this.userRepo.insert({
       id: toNumber(id),
-      ...waitToReg
+      ...waitToReg,
+      status: 1,
     })
 
     return result.identifiers.length > 0

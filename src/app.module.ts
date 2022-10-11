@@ -1,6 +1,8 @@
 import './polyfill'
 
-import { Module } from '@nestjs/common'
+import {
+  Module,
+} from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { AdminModule } from './module/admin/admin.module'
 import Config from './config/env/config'

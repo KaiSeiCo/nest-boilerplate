@@ -26,6 +26,7 @@ export class OperationLog extends BaseEntity {
         nullable: true,
         comment: '操作路径'
     })
+    @ApiProperty()
     path: string
 
     @Column({
@@ -34,6 +35,7 @@ export class OperationLog extends BaseEntity {
         nullable: true,
         comment: '操作类型'
     })
+    @ApiProperty()
     method: string
 
     @Column({
@@ -42,6 +44,7 @@ export class OperationLog extends BaseEntity {
         nullable: true,
         comment: '操作ip来源'
     })
+    @ApiProperty()
     ip_address: string
 
     @Column({
@@ -50,5 +53,6 @@ export class OperationLog extends BaseEntity {
         nullable: true,
         comment: '操作来源地'
     })
+    @ApiProperty()
     ip_source: string
 }

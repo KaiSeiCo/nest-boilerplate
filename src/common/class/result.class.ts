@@ -9,7 +9,18 @@ export class Result<T> {
     this.code = code
   }
 
-  static success<T>(data?: T) {
+  static success<T>(data?: T | null) {
     return new Result<T>(data, 'success', 200)
   }
+}
+
+export class Pagination {
+  total: number;
+  page: number;
+  size: number;
+}
+
+export class PageResult<T> {
+  list?: Array<T>;
+  pagination: Pagination;
 }

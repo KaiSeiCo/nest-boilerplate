@@ -15,9 +15,20 @@ import {
 } from './share/logger/logger.interface'
 import { TypeORMLoggerService } from './share/logger/typeorm-logger.service'
 import { LOGGER_MODULE_OPTIONS } from './common/constant/logger.constants'
+import { RouterModule } from '@nestjs/core'
+import { ADMIN_ROUTER_PREFIX } from './common/constant/router-prefix.constants'
 
 @Module({
   imports: [
+    // router prefix register
+    RouterModule.register([
+      {
+        path: ADMIN_ROUTER_PREFIX,
+        children: [
+          AdminModule,
+        ],
+      },
+    ]),
     // Apply Config
     ConfigModule.forRoot({
       isGlobal: true,

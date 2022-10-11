@@ -12,7 +12,7 @@ import { UserService } from 'src/service/user.service'
  */
 @ApiTags('认证模块')
 @ApiBearerAuth()
-@Controller('')
+@Controller('auth')
 export class AuthController {
   constructor(private userService: UserService) {}
 

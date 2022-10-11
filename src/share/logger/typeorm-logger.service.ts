@@ -1,10 +1,10 @@
 import {
   DEFAULT_SQL_ERROR_LOG_NAME,
   DEFAULT_SQL_SLOW_LOG_NAME,
-} from 'src/common/constant/logger.constants'
-import { Logger, LoggerOptions } from 'typeorm'
-import { LoggerModuleOptions } from './logger.interface'
-import { LoggerService } from './logger.service'
+} from 'src/common/constant/logger.constants';
+import { Logger, LoggerOptions } from 'typeorm';
+import { LoggerModuleOptions } from './logger.interface';
+import { LoggerService } from './logger.service';
 
 /**
  * @desc custom typeorm logger
@@ -13,7 +13,7 @@ export class TypeORMLoggerService implements Logger {
   /**
    * sql logger
    */
-  private logger: LoggerService
+  private logger: LoggerService;
 
   constructor(
     private options: LoggerOptions,
@@ -28,7 +28,7 @@ export class TypeORMLoggerService implements Logger {
       dir: this.config.dir,
       maxFileSize: this.config.maxFileSize,
       maxFiles: this.config.maxFiles,
-    })
+    });
   }
 
   /**
@@ -44,8 +44,8 @@ export class TypeORMLoggerService implements Logger {
         query +
         (parameters && parameters.length
           ? ' -- PARAMETERS: ' + this.stringifyParams(parameters)
-          : '')
-      this.logger.verbose('[QUERY]: ' + sql)
+          : '');
+      this.logger.verbose('[QUERY]: ' + sql);
     }
   }
 
@@ -62,8 +62,8 @@ export class TypeORMLoggerService implements Logger {
         query +
         (parameters && parameters.length
           ? ' -- PARAMETERS: ' + this.stringifyParams(parameters)
-          : '')
-      this.logger.error([`[FAILED QUERY]: ${sql}`, `[QUERY ERROR]: ${error}`])
+          : '');
+      this.logger.error([`[FAILED QUERY]: ${sql}`, `[QUERY ERROR]: ${error}`]);
     }
   }
 
@@ -75,8 +75,8 @@ export class TypeORMLoggerService implements Logger {
       query +
       (parameters && parameters.length
         ? ' -- PARAMETERS: ' + this.stringifyParams(parameters)
-        : '')
-    this.logger.warn(`[SLOW QUERY: ${time} ms]: ` + sql)
+        : '');
+    this.logger.warn(`[SLOW QUERY: ${time} ms]: ` + sql);
   }
 
   /**
@@ -87,7 +87,7 @@ export class TypeORMLoggerService implements Logger {
       this.options === 'all' ||
       (Array.isArray(this.options) && this.options.indexOf('schema') !== -1)
     ) {
-      this.logger.verbose(message)
+      this.logger.verbose(message);
     }
   }
 
@@ -95,7 +95,7 @@ export class TypeORMLoggerService implements Logger {
    * Logs events from the migrations run process.
    */
   logMigration(message: string) {
-    this.logger.verbose(message)
+    this.logger.verbose(message);
   }
 
   /**
@@ -109,22 +109,22 @@ export class TypeORMLoggerService implements Logger {
           this.options === 'all' ||
           (Array.isArray(this.options) && this.options.indexOf('log') !== -1)
         )
-          this.logger.verbose('[LOG]: ' + message)
-        break
+          this.logger.verbose('[LOG]: ' + message);
+        break;
       case 'info':
         if (
           this.options === 'all' ||
           (Array.isArray(this.options) && this.options.indexOf('info') !== -1)
         )
-          this.logger.log('[INFO]: ' + message)
-        break
+          this.logger.log('[INFO]: ' + message);
+        break;
       case 'warn':
         if (
           this.options === 'all' ||
           (Array.isArray(this.options) && this.options.indexOf('warn') !== -1)
         )
-          this.logger.warn('[WARN]: ' + message)
-        break
+          this.logger.warn('[WARN]: ' + message);
+        break;
     }
   }
 
@@ -134,10 +134,10 @@ export class TypeORMLoggerService implements Logger {
    */
   protected stringifyParams(parameters: any[]) {
     try {
-      return JSON.stringify(parameters)
+      return JSON.stringify(parameters);
     } catch (error) {
       // most probably circular objects in parameters
-      return parameters
+      return parameters;
     }
   }
 }

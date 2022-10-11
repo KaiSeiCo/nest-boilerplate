@@ -1,10 +1,10 @@
-import { DynamicModule, Module } from '@nestjs/common'
-import { LOGGER_MODULE_OPTIONS } from 'src/common/constant/logger.constants'
+import { DynamicModule, Module } from '@nestjs/common';
+import { LOGGER_MODULE_OPTIONS } from 'src/common/constant/logger.constants';
 import {
   LoggerModuleAsyncOptions,
   LoggerModuleOptions,
-} from './logger.interface'
-import { LoggerService } from './logger.service'
+} from './logger.interface';
+import { LoggerService } from './logger.service';
 
 @Module({})
 export class LoggerModule {
@@ -23,7 +23,7 @@ export class LoggerModule {
         },
       ],
       exports: [LoggerService, LOGGER_MODULE_OPTIONS],
-    }
+    };
   }
 
   static forRootAsync(
@@ -43,6 +43,6 @@ export class LoggerModule {
         },
       ],
       exports: [LoggerService, LOGGER_MODULE_OPTIONS],
-    }
+    };
   }
 }

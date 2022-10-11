@@ -1,4 +1,4 @@
-import { DataSourceOptions } from 'typeorm'
+import { DataSourceOptions } from 'typeorm';
 
 export default {
   database: {
@@ -20,4 +20,4 @@ export default {
   jwt: {
     secret: process.env.JWT_SECRET,
   },
-}
+};

@@ -21,7 +21,7 @@ export function buildDynamicSqlAppendWhere<T>(
     .filter((e) => isNotEmpty(e.value))
     .forEach((e) => {
       const { field, condition, value, fuzzy } = e;
-      let assignExp: {
+      const assignExp: {
         [key: string]: any;
       } = {};
       assignExp[`${field}`] = fuzzy ? `%${value}%` : value;

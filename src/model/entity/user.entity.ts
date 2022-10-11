@@ -1,16 +1,16 @@
-import { ApiProperty } from '@nestjs/swagger'
-import { Column, Entity, Index, PrimaryColumn } from 'typeorm'
-import { BaseEntity } from './base.entity'
+import { ApiProperty } from '@nestjs/swagger';
+import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'tb_user' })
 @Index('username-status', ['username', 'status'])
 export default class User extends BaseEntity {
   @PrimaryColumn({
     type: 'bigint',
-    unsigned: true, 
+    unsigned: true,
   })
   @ApiProperty()
-  id: number
+  id: number;
 
   @Column({
     comment: '用户名',
@@ -18,49 +18,49 @@ export default class User extends BaseEntity {
   })
   @ApiProperty()
   @Index('username-index', { unique: true })
-  username: string
+  username: string;
 
   @Column({
-    comment: '密码'
+    comment: '密码',
   })
   @ApiProperty()
-  password: string
+  password: string;
 
   @Column({
     nullable: true,
-    comment: '昵称'
+    comment: '昵称',
   })
   @ApiProperty()
-  nickname: string
+  nickname: string;
 
   @Column({
     nullable: true,
     length: 1024,
-    comment: '邮箱'
+    comment: '邮箱',
   })
   @ApiProperty()
-  email: string
+  email: string;
 
   @Column({
     nullable: true,
-    comment: '头像'
+    comment: '头像',
   })
   @ApiProperty()
-  avatar: string
+  avatar: string;
 
   @Column({
     nullable: true,
     length: 128,
-    comment: '个性签名'
+    comment: '个性签名',
   })
   @ApiProperty()
-  intro: string
+  intro: string;
 
   @Column({
     type: 'tinyint',
     nullable: true,
-    comment: '1正常 0禁用'
+    comment: '1正常 0禁用',
   })
   @ApiProperty()
-  status: number
+  status: number;
 }

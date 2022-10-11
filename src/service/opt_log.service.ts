@@ -1,23 +1,23 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { OptLogSave } from "src/model/dto/opt_log.dto";
-import { OperationLog } from "src/model/entity/opt_log.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { OptLogSave } from 'src/model/dto/opt_log.dto';
+import { OperationLog } from 'src/model/entity/opt_log.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class OperationLogService {
-    constructor(
-        @InjectRepository(OperationLog)
-        private readonly operationLogRepo: Repository<OperationLog>
-    ) {}
+  constructor(
+    @InjectRepository(OperationLog)
+    private readonly operationLogRepo: Repository<OperationLog>,
+  ) {}
 
-    /**
-     * 保存日志
-     * @param optLog 
-     */
-    async saveLog(optLog: OptLogSave) {
-        await this.operationLogRepo.save({
-            ...optLog
-        })
-    }
+  /**
+   * 保存日志
+   * @param optLog
+   */
+  async saveLog(optLog: OptLogSave) {
+    await this.operationLogRepo.save({
+      ...optLog,
+    });
+  }
 }

@@ -11,9 +11,9 @@ export const HttpCodeMap = {
   50000: '内部服务器异常',
   50001: '操作失败',
   50002: '参数格式不正确',
-}
+};
 
-export type HttpCodeMapType = keyof typeof HttpCodeMap
+export type HttpCodeMapType = keyof typeof HttpCodeMap;
 
 export const CustomHttpCode: Record<
   string,
@@ -59,4 +59,4 @@ export const CustomHttpCode: Record<
     code: 50002,
     message: '参数格式不正确',
   },
-}
+};

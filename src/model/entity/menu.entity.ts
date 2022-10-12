@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'tb_menu' })
 export class Menu extends BaseEntity {
-  @PrimaryColumn({
-    type: 'bigint',
+  @PrimaryGeneratedColumn({
     unsigned: true,
   })
   @ApiProperty()
@@ -13,7 +12,7 @@ export class Menu extends BaseEntity {
 
   @Column({
     nullable: true,
-    type: 'bigint',
+    type: 'int',
     unsigned: true,
     comment: '父级菜单id',
   })
@@ -44,8 +43,8 @@ export class Menu extends BaseEntity {
   perms: string;
 
   @Column({
-    nullable: true,
     type: 'tinyint',
+    default: 0,
     comment: '类型 0-导航 1-底级导航(关联url) 2-按钮',
   })
   @ApiProperty()
@@ -61,6 +60,7 @@ export class Menu extends BaseEntity {
   @Column({
     nullable: true,
     type: 'int',
+    default: 0,
     comment: '显示顺序',
   })
   order_num: number;
@@ -74,14 +74,16 @@ export class Menu extends BaseEntity {
 
   @Column({
     nullable: true,
-    type: 'tinyint',
+    type: 'boolean',
+    default: true,
   })
-  keepalive: number;
+  keepalive: boolean;
 
   @Column({
     nullable: true,
-    type: 'tinyint',
+    type: 'boolean',
+    default: true,
     comment: '是否显示',
   })
-  is_show: number;
+  is_show: boolean;
 }

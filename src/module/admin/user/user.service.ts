@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import User from '../model/entity/User.entity';
+import User from '../../../model/entity/User.entity';
 import { Repository } from 'typeorm';
 import {
   UserLoginDto,
@@ -13,7 +13,6 @@ import { Snowflake } from 'nodejs-snowflake';
 import { isEmpty, toNumber } from 'lodash';
 import { JwtService } from '@nestjs/jwt';
 import { LoginVo, UserListVo } from 'src/model/vo/user.vo';
-import { isNotEmpty } from 'class-validator';
 import { buildDynamicSqlAppendWhere } from 'src/util/typeorm.util';
 
 @Injectable()
@@ -68,31 +67,38 @@ export class UserService {
 
   async page(query: UserQueryDto): Promise<[UserListVo[], number]> {
     const { username, email, status, page, limit } = query;
-    const queryBase = this.userRepo.createQueryBuilder('').where('1 = 1');
+    const queryBase = this.userRepo.createQueryBuilder('user').where('1 = 1');
     buildDynamicSqlAppendWhere(queryBase, [
       {
-        field: 'username',
+        field: 'user.username',
         condition: 'LIKE',
         value: username,
         fuzzy: true,
       },
       {
-        field: 'email',
+        field: 'user.email',
         condition: '=',
         value: email,
       },
       {
-        field: 'status',
+        field: 'user.status',
         condition: '=',
         value: status,
       },
     ])
       .skip((page - 1) * limit)
       .take(limit);
-    const [_, total] = await queryBase.getManyAndCount();
-    const list = await queryBase.getRawMany();
-    console.log(list);
-    const result: UserListVo[] = [];
+    const [list, total] = await queryBase.getManyAndCount();
+    const result: UserListVo[] = list.map((e) => {
+      return {
+        username: e.username,
+        nickname: e.nickname,
+        email: e.email,
+        avatar: e.avatar,
+        intro: e.intro,
+        status: e.status,
+      }
+    });
     return [result, total];
   }
 }

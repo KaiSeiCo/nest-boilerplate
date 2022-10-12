@@ -1,11 +1,10 @@
-import { Body, Controller, Get, Query } from '@nestjs/common';
-import { Param } from '@nestjs/common/decorators';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { PageResult, Result } from 'src/common/class/result.class';
 import { Authorize } from 'src/common/decorator/auth.decorator';
 import { UserQueryDto } from 'src/model/dto/user.dto';
 import { UserListVo } from 'src/model/vo/user.vo';
-import { UserService } from 'src/service/user.service';
+import { UserService } from 'src/module/admin/user/user.service';
 
 /**
  * @desc api used for authentication
@@ -24,7 +23,6 @@ export class UserController {
   async list(
     @Query() query: UserQueryDto,
   ): Promise<Result<PageResult<UserListVo>>> {
-    console.log(query);
     const [list, total] = await this.userService.page(query);
     return Result.success({
       list,

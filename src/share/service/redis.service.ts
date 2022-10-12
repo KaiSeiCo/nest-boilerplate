@@ -1,10 +1,10 @@
-import { Redis } from 'ioredis'
-import { Cluster } from 'cluster'
+import { Redis } from 'ioredis';
+import { Cluster } from 'cluster';
 import {
   REDIS_CLIENT,
   REDIS_DEFAULT_CLIENT_KEY,
-} from 'src/common/constant/redis.constants'
-import { Inject, Injectable } from '@nestjs/common'
+} from 'src/common/constant/redis.constants';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class RedisService {
@@ -15,8 +15,8 @@ export class RedisService {
 
   public getRedis(name = REDIS_DEFAULT_CLIENT_KEY): Redis {
     if (!this.clients.has(name)) {
-      throw new Error(`redis client ${name} does not exists`)
+      throw new Error(`redis client ${name} does not exists`);
     }
-    return this.clients.get(name) as Redis
+    return this.clients.get(name) as Redis;
   }
 }

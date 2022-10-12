@@ -3,16 +3,16 @@ import {
   Module,
   OnModuleDestroy,
   Provider,
-} from '@nestjs/common'
-import IORedis, { Redis, Cluster } from 'ioredis'
-import { isEmpty } from 'lodash'
+} from '@nestjs/common';
+import IORedis, { Redis, Cluster } from 'ioredis';
+import { isEmpty } from 'lodash';
 import {
   REDIS_CLIENT,
   REDIS_DEFAULT_CLIENT_KEY,
   REDIS_MODULE_OPTIONS,
-} from 'src/common/constant/redis.constants'
-import { TypeOfArrayOrNot } from 'src/common/type/type'
-import { RedisModuleAsyncOptions, RedisModuleOptions } from './redis.interface'
+} from 'src/common/constant/redis.constants';
+import { TypeOfArrayOrNot } from 'src/common/type/type';
+import { RedisModuleAsyncOptions, RedisModuleOptions } from './redis.interface';
 
 @Module({})
 export class RedisModule implements OnModuleDestroy {
@@ -22,7 +22,7 @@ export class RedisModule implements OnModuleDestroy {
   static register(
     options: TypeOfArrayOrNot<RedisModuleOptions>,
   ): DynamicModule {
-    const clientProvider = this.createAsyncProvider()
+    const clientProvider = this.createAsyncProvider();
     return {
       module: RedisModule,
       providers: [
@@ -33,17 +33,17 @@ export class RedisModule implements OnModuleDestroy {
         },
       ],
       exports: [clientProvider],
-    }
+    };
   }
 
   static registerAsync(options: RedisModuleAsyncOptions): DynamicModule {
-    const clientProvider = this.createAsyncProvider()
+    const clientProvider = this.createAsyncProvider();
     return {
       module: RedisModule,
       imports: options.imports ?? [],
       providers: [clientProvider, this.createAsyncClientOptions(options)],
       exports: [clientProvider],
-    }
+    };
   }
 
   /**
@@ -56,24 +56,24 @@ export class RedisModule implements OnModuleDestroy {
       useFactory: (
         options: TypeOfArrayOrNot<RedisModuleOptions>,
       ): Map<string, Redis | Cluster> => {
-        const clients = new Map<string, Redis | Cluster>()
+        const clients = new Map<string, Redis | Cluster>();
         if (Array.isArray(options)) {
           options.forEach((op) => {
-            const name = op.name ?? REDIS_DEFAULT_CLIENT_KEY
+            const name = op.name ?? REDIS_DEFAULT_CLIENT_KEY;
             if (clients.has(name)) {
-              throw new Error('redis Init Error: deplicated redis name')
+              throw new Error('redis Init Error: deplicated redis name');
             }
-            clients.set(name, this.createClient(op))
-          })
+            clients.set(name, this.createClient(op));
+          });
         }
         // if not array, create single redis instance
         else {
-          clients.set(REDIS_DEFAULT_CLIENT_KEY, this.createClient(options))
+          clients.set(REDIS_DEFAULT_CLIENT_KEY, this.createClient(options));
         }
-        return clients
+        return clients;
       },
       inject: [REDIS_MODULE_OPTIONS],
-    }
+    };
   }
 
   /**
@@ -81,23 +81,23 @@ export class RedisModule implements OnModuleDestroy {
    */
   private static createClient(options: RedisModuleOptions): Redis | Cluster {
     const { onClientReady, url, cluster, clusterOptions, nodes, ...opts } =
-      options
-    let client = null
+      options;
+    let client = null;
     // check url
     if (!isEmpty(url)) {
-      client = new IORedis(url)
+      client = new IORedis(url);
     }
     // check cluster
     else if (cluster) {
-      client = new IORedis.Cluster(nodes, clusterOptions)
+      client = new IORedis.Cluster(nodes, clusterOptions);
     } else {
-      client = new IORedis(opts)
+      client = new IORedis(opts);
     }
 
     if (onClientReady) {
-      onClientReady(client)
+      onClientReady(client);
     }
-    return client
+    return client;
   }
 
   private static createAsyncClientOptions(
@@ -107,7 +107,7 @@ export class RedisModule implements OnModuleDestroy {
       provide: REDIS_MODULE_OPTIONS,
       useFactory: options.useFactory,
       inject: options.inject,
-    }
+    };
   }
 
   onModuleDestroy() {

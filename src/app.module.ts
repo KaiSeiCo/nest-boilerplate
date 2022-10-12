@@ -1,23 +1,30 @@
-import './polyfill'
+import './polyfill';
 
-import {
-  Module,
-} from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { AdminModule } from './module/admin/admin.module'
-import Config from './config/env/config'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { ShareModule } from './share/share.module'
-import { LoggerModule } from './share/logger/logger.module'
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AdminModule } from './module/admin/admin.module';
+import Config from './config/env/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ShareModule } from './share/share.module';
+import { LoggerModule } from './share/logger/logger.module';
 import {
   LoggerModuleOptions,
   WinstonLogLevel,
-} from './share/logger/logger.interface'
-import { TypeORMLoggerService } from './share/logger/typeorm-logger.service'
-import { LOGGER_MODULE_OPTIONS } from './common/constant/logger.constants'
+} from './share/logger/logger.interface';
+import { TypeORMLoggerService } from './share/logger/typeorm-logger.service';
+import { LOGGER_MODULE_OPTIONS } from './common/constant/logger.constants';
+import { RouterModule } from '@nestjs/core';
+import { ADMIN_ROUTER_PREFIX } from './common/constant/router-prefix.constants';
 
 @Module({
   imports: [
+    // router prefix register
+    RouterModule.register([
+      {
+        path: ADMIN_ROUTER_PREFIX,
+        children: [AdminModule],
+      },
+    ]),
     // Apply Config
     ConfigModule.forRoot({
       isGlobal: true,
@@ -64,7 +71,7 @@ import { LOGGER_MODULE_OPTIONS } from './common/constant/logger.constants'
             dir: config.get<string>('logger.dir'),
             errorLogName: config.get<string>('logger.errorLogName'),
             appLogName: config.get<string>('logger.appLogName'),
-          }
+          };
         },
         inject: [ConfigService],
       },

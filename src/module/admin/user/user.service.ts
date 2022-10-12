@@ -97,7 +97,7 @@ export class UserService {
         avatar: e.avatar,
         intro: e.intro,
         status: e.status,
-      }
+      };
     });
     return [result, total];
   }

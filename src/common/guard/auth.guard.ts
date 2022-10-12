@@ -1,7 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { getDataSourceToken } from '@nestjs/typeorm';
 import { FastifyRequest } from 'fastify';
 import { isEmpty } from 'lodash';
 import { AUTHORIZE_KEY_METADATA } from '../constant/auth.constant';

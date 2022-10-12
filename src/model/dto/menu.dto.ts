@@ -1,10 +1,19 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsIn, IsInt, IsString, MinLength, Min, ValidateIf, IsBoolean, IsOptional } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsIn,
+  IsInt,
+  IsString,
+  MinLength,
+  Min,
+  ValidateIf,
+  IsBoolean,
+  IsOptional,
+} from 'class-validator';
 
 /**
  * 增加菜单
  */
- export class CreateMenuDto {
+export class CreateMenuDto {
   @ApiProperty({ description: '菜单类型' })
   @IsIn([0, 1, 2])
   type: number;

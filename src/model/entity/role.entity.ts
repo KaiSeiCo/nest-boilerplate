@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'tb_role' })
 export class Role extends BaseEntity {
-  @PrimaryColumn({
-    type: 'bigint',
+  @PrimaryGeneratedColumn({
+    type: 'int',
     unsigned: true,
   })
   @ApiProperty()
@@ -20,6 +20,7 @@ export class Role extends BaseEntity {
 
   @Column({
     type: 'varchar',
+    length: 50,
     comment: '角色标签',
   })
   @ApiProperty()

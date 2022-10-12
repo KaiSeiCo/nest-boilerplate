@@ -5,7 +5,7 @@ import { Result } from 'src/common/class/result.class';
 import { Authorize } from 'src/common/decorator/auth.decorator';
 import { UserLoginDto, UserRegisterDto } from 'src/model/dto/user.dto';
 import { LoginVo } from 'src/model/vo/user.vo';
-import { UserService } from 'src/service/user.service';
+import { UserService } from 'src/module/admin/user/user.service';
 
 /**
  * @desc api used for authentication

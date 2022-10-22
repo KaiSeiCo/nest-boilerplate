@@ -23,15 +23,13 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<FastifyRequest>();
     const url = request.url;
     const path = url.split('?')[0];
-    const token = request.headers['authorization'] as string;
+    // const token = request.headers['authorization'] ?? '';
 
-    if (isEmpty(token)) {
-      throw new ApiException(40001);
-    }
-    const decodeInfo = this.jwtService.verify(token.replace('Bearer ', ''));
+    // if (isEmpty(token)) {
+    //   throw new ApiException(40001);
+    // }
+    // const decodeInfo = this.jwtService.verify(token.replace('Bearer ', ''));
 
-    console.log(path);
-    console.log(decodeInfo);
     return true;
   }
 }

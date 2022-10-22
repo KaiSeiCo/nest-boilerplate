@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateMenuDto } from 'src/model/dto/menu.dto';
+import { ApiException } from 'src/common/exception/api.exception';
+import { CreateMenuDto, UpdateMenuDto } from 'src/model/dto/menu.dto';
 import { Menu } from 'src/model/entity/menu.entity';
 import { Repository } from 'typeorm';
 
@@ -17,5 +18,30 @@ export class MenuService {
 
   async save(menu: CreateMenuDto) {
     await this.menuRepo.save(menu);
+  }
+
+  async delete(id: number) {
+    await this.menuRepo.delete({
+      id,
+    });
+  }
+
+  async update(dto: UpdateMenuDto) {
+    // check parent id exists
+    const parent_menu = await this.menuRepo.find({
+      where: { parent_id: dto.parent_id },
+    });
+
+    if (!parent_menu) {
+      throw new ApiException(41004);
+    }
+
+    // update
+    await this.menuRepo
+      .createQueryBuilder()
+      .update(Menu)
+      .set(dto)
+      .where('id = :id', { id: dto.id })
+      .execute();
   }
 }

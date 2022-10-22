@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'tb_role_menu' })
-export class UserRole extends BaseEntity {
+export class RoleMenu extends BaseEntity {
   @PrimaryGeneratedColumn({
     unsigned: true,
   })

@@ -20,4 +20,19 @@ export class OperationLogService {
       ...optLog,
     });
   }
+
+  /**
+   * 请求日志列表
+   */
+  async list() {
+    const logs = await this.operationLogRepo.find();
+    return logs;
+  }
+
+  async deleteLog(id: number) {
+    await this.operationLogRepo.delete({
+      id
+    });
+  }
+
 }

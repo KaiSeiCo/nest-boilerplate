@@ -15,9 +15,12 @@ import { Menu } from 'src/model/entity/menu.entity';
 import { Role } from 'src/model/entity/role.entity';
 import { RoleService } from './rbac/role.service';
 import { RoleController } from './rbac/role.controller';
+import { RoleMenu } from 'src/model/entity/role_menu.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, OperationLog, Menu, Role])],
+  imports: [
+    TypeOrmModule.forFeature([User, OperationLog, Menu, Role, RoleMenu]),
+  ],
   providers: [
     UserService,
     OperationLogService,

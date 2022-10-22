@@ -15,6 +15,11 @@ import { UserService } from 'src/module/admin/user/user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  /**
+   * 获取用户列表接口
+   * @param query 
+   * @returns 
+   */
   @ApiOperation({
     summary: '分页获取用户列表',
   })

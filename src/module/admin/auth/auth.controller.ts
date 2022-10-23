@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
-import { Body, Get, Post } from '@nestjs/common/decorators';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Body, Post } from '@nestjs/common/decorators';
+import { ApiTags } from '@nestjs/swagger';
 import { Result } from 'src/common/class/result.class';
 import { Authorize } from 'src/common/decorator/auth.decorator';
 import { UserLoginDto, UserRegisterDto } from 'src/model/dto/user.dto';
@@ -11,7 +11,6 @@ import { UserService } from 'src/module/admin/user/user.service';
  * @desc api used for authentication
  */
 @ApiTags('认证模块')
-@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
   constructor(private userService: UserService) {}
@@ -35,11 +34,6 @@ export class AuthController {
   @Post('register')
   async register(@Body() waitToReg: UserRegisterDto): Promise<Result<boolean>> {
     await this.userService.register(waitToReg);
-    return Result.success();
-  }
-
-  @Get('test')
-  async test(): Promise<Result<any>> {
     return Result.success();
   }
 }

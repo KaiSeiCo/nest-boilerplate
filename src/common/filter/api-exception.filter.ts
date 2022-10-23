@@ -28,7 +28,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
         ? (exception as ApiException).getErrorCode()
         : status;
     // message
-    let message = '服务器异常，请稍后再试';
+    let message = 'Internal Server Error';
     if (isDev() || status < 500) {
       message =
         exception instanceof HttpException ? exception.message : `${exception}`;

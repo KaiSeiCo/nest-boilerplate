@@ -8,5 +8,5 @@ export type UserListVo = {
   email?: string;
   avatar?: string;
   intro?: string;
-  status?: number;
+  status?: boolean;
 };

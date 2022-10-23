@@ -1,16 +1,16 @@
 export const HttpCodeMap = {
-  20000: '请求成功',
+  20000: 'Success',
   // 400
-  40001: '未登录',
-  40002: '参数校验失败',
-  40003: '权限受限',
-  41004: '不存在该用户',
-  41005: '密码错误',
-  41006: '用户名已经被注册',
+  40001: 'Unauthorized',
+  40002: 'Invalid Parameter',
+  40003: 'Perms not allowed',
+  41004: 'User not exists',
+  41005: 'Wrong password',
+  41006: 'User already exists',
   // 500
-  50000: '内部服务器异常',
-  50001: '操作失败',
-  50002: '参数格式不正确',
+  50000: 'Internal Server Error',
+  50001: 'Bad Operation',
+  50002: 'Invalid Parameter Format',
 };
 
 export type HttpCodeMapType = keyof typeof HttpCodeMap;
@@ -21,42 +21,42 @@ export const CustomHttpCode: Record<
 > = {
   SUCCESS: {
     code: 20000,
-    message: '请求成功',
+    message: 'Success',
   },
   NOT_LOGIN: {
     code: 40001,
-    message: '未登录',
+    message: 'Unauthorized',
   },
   PARAMETER_INVALID: {
     code: 40002,
-    message: '参数校验失败',
+    message: 'Invalid Parameter',
   },
   UNAUTHORIZED: {
     code: 40003,
-    message: '未授权',
+    message: 'Perms not allowed',
   },
   USER_NOT_EXISTS: {
     code: 41004,
-    message: '用户不存在',
+    message: 'User not exists',
   },
   WRONG_PASSWORD: {
     code: 41005,
-    message: '密码错误',
+    message: 'Wrong password',
   },
   USER_ALREADY_EXISTS: {
     code: 41006,
-    message: '用户名已被注册',
+    message: 'User already exists',
   },
   INTERNAL_SERVER_ERROR: {
     code: 50000,
-    message: '内部服务器异常',
+    message: 'Internal Server Error',
   },
   OPERATION_FAILED: {
     code: 50001,
-    message: '操作失败',
+    message: 'Bad Operation',
   },
   INVALID_PARAMETER_FORMAT: {
     code: 50002,
-    message: '参数格式不正确',
+    message: 'Invalid Parameter Format',
   },
 };

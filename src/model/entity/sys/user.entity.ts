@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from '../base.entity';
 
-@Entity({ name: 'tb_user' })
+@Entity({ name: 'sys_user' })
 @Index('username-status', ['username', 'status'])
 export default class User extends BaseEntity {
   @PrimaryColumn({
@@ -62,5 +62,5 @@ export default class User extends BaseEntity {
     comment: '1正常 0禁用',
   })
   @ApiProperty()
-  status: number;
+  status: boolean;
 }

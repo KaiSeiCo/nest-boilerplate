@@ -4,7 +4,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Result } from 'src/common/class/result.class';
 import { Authorize } from 'src/common/decorator/auth.decorator';
 import { CreateRoleDto, UpdateRoleDto } from 'src/model/dto/role.dto';
-import { Role } from 'src/model/entity/role.entity';
+import { Role } from 'src/model/entity/sys/role.entity';
 import { RoleService } from './role.service';
 
 @ApiTags('角色模块')

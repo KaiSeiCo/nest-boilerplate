@@ -11,7 +11,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Result } from 'src/common/class/result.class';
 import { Authorize } from 'src/common/decorator/auth.decorator';
 import { CreateMenuDto, UpdateMenuDto } from 'src/model/dto/menu.dto';
-import { Menu } from 'src/model/entity/menu.entity';
+import { Menu } from 'src/model/entity/sys/menu.entity';
 import { MenuService } from './menu.service';
 
 @ApiTags('菜单模块')
@@ -61,7 +61,6 @@ export class MenuController {
    * @param dto 
    * @returns 
    */
-  @Authorize()
   @ApiOperation({ summary: '修改菜单' })
   @Put('update')
   async update(@Body() dto: UpdateMenuDto) {

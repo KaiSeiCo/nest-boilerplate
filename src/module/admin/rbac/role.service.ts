@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { difference, filter, includes } from 'lodash';
 import { CreateRoleDto, UpdateRoleDto } from 'src/model/dto/role.dto';
-import { Role } from 'src/model/entity/role.entity';
-import { RoleMenu } from 'src/model/entity/role_menu.entity';
+import { Role } from 'src/model/entity/sys/role.entity';
+import { RoleMenu } from 'src/model/entity/sys/role_menu.entity';
 import { EntityManager, Repository } from 'typeorm';
 
 @Injectable()
@@ -17,20 +17,37 @@ export class RoleService {
     private entityManager: EntityManager,
   ) {}
 
+  /**
+   * find all roles
+   * @returns 
+   */
   async list(): Promise<Role[]> {
     return await this.roleRepo.find();
   }
 
+  /**
+   * create a role
+   * @param dto 
+   */
   async save(dto: CreateRoleDto) {
     await this.roleRepo.save(dto);
   }
 
+  /**
+   * delete role by id
+   * @param id 
+   */
   async delete(id: number) {
     await this.roleRepo.delete({
       id,
     });
   }
 
+  /**
+   * update role and role_menu
+   * @param dto 
+   * @returns 
+   */
   async update(dto: UpdateRoleDto) {
     const { id, role_name, role_label, remark, menus } = dto;
     // save updated role, find relative menus
@@ -57,7 +74,6 @@ export class RoleService {
           menu_id,
         };
       });
-    console.log(insertMenu);
     // menu need to delete
     const deleteMenu = difference(originMenuIds, menus);
     const deleteRoleMenuFieldIds = filter(originMenus, (e) => {
@@ -77,6 +93,8 @@ export class RoleService {
           : null,
       ]);
     });
+    // [TODO-RECORD-221023] 
+    // should force logout relavant user
 
     return role;
   }

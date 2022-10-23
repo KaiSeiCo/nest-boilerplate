@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString, IsUrl, Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUrl, Length } from 'class-validator';
 import { PageOptionsDto } from './page.dto';
 
 export class UserLoginDto {
@@ -56,5 +56,34 @@ export class UserQueryDto extends PageOptionsDto {
 
   @ApiProperty({ description: '邮箱', required: false })
   @IsOptional()
+  @IsEmail()
   email?: string;
+}
+
+export class UpdateUserDto {
+
+  @ApiProperty({ description: '用户id', required: true })
+  @IsNotEmpty()
+  id?: number
+
+  @ApiProperty({ description: '用户名', required: false })
+  @IsOptional()
+  username?: string;
+
+  @ApiProperty({ description: '密码', required: false })
+  @IsOptional()
+  password?: string;
+
+  @ApiProperty({ description: '邮箱', required: false })
+  @IsOptional()
+  @IsEmail()
+  email?: string;
+
+  @ApiProperty({ description: '状态 1启用 0封禁', required: false })
+  @IsOptional()
+  status?: boolean;
+
+  @ApiProperty({ description: '关联角色id', required: false })
+  @IsOptional()
+  role_id?: number;
 }

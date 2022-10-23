@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   constructor(private reflector: Reflector, private jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    // @Authorize 跳过校验
+    // @Authorize skip token validation
     const authorize = this.reflector.get<boolean>(
       AUTHORIZE_KEY_METADATA,
       context.getHandler(),
@@ -23,13 +23,23 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<FastifyRequest>();
     const url = request.url;
     const path = url.split('?')[0];
-    // const token = request.headers['authorization'] ?? '';
+    const token = request.headers['authorization'] ?? '';
 
-    // if (isEmpty(token)) {
-    //   throw new ApiException(40001);
-    // }
-    // const decodeInfo = this.jwtService.verify(token.replace('Bearer ', ''));
+    if (isEmpty(token)) {
+      throw new ApiException(40001);
+    }
+    // [TODO-RECORD-221023] 
+    // may check menu path resource in decoded token
+    const decodeInfo = this.jwtService.verify(token.replace('Bearer ', ''));
 
+    // [TODO-RECORD-221023] 
+    // check token in redis
+
+    /**
+     * if (decodeInfo.perms not contains path) {
+     *    return false
+     * }
+     */
     return true;
   }
 }

@@ -5,12 +5,12 @@ import {
 } from '../constant/auth.constant';
 
 /**
- * 开放api，无需token和权限
+ * not need token and auth
  */
 export const Authorize = () => SetMetadata(AUTHORIZE_KEY_METADATA, true);
 
 /**
- * 开放api，无需权限但是需要token
+ * need token not need auth
  */
 export const PermissionOptional = () =>
   SetMetadata(PERMISSION_OPTIONAL_KEY_METADATA, true);

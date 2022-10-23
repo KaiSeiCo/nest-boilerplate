@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from '../base.entity';
 
-@Entity({ name: 'tb_user_role' })
+@Entity({ name: 'sys_user_role' })
 export class UserRole extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
@@ -17,6 +17,7 @@ export class UserRole extends BaseEntity {
     comment: '用户id',
   })
   @ApiProperty()
+  @Index()
   user_id: number;
 
   @Column({

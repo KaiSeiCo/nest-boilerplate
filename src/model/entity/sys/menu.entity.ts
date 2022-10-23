@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from '../base.entity';
 
-@Entity({ name: 'tb_menu' })
+@Entity({ name: 'sys_menu' })
 export class Menu extends BaseEntity {
   @PrimaryGeneratedColumn({
     unsigned: true,
@@ -17,6 +17,7 @@ export class Menu extends BaseEntity {
     comment: '父级菜单id',
   })
   @ApiProperty()
+  @Index()
   parent_id: number;
 
   @Column({
